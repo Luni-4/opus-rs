@@ -9,6 +9,7 @@ pub struct Decoder {
 }
 
 unsafe impl Send for Decoder {} // TODO: Make sure it cannot be abused
+unsafe impl Sync for Decoder {} // TODO: Super dangerous!
 
 impl Decoder {
     pub fn create(
@@ -33,10 +34,7 @@ impl Decoder {
         if err < 0 {
             Err(err.into())
         } else {
-            Ok(Decoder {
-                dec,
-                channels,
-            })
+            Ok(Decoder { dec, channels })
         }
     }
 
